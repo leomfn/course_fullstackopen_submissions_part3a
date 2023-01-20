@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 
-// app.use(express.json())
+app.use(express.json())
 
 let persons = [
   {
@@ -44,6 +44,26 @@ app.get('/api/persons/:id', (request, response) => {
   person
     ? response.json(person)
     : response.status(404).end()
+
+})
+
+app.post('/api/persons', (request, response) => {
+  console.log('POST request on /api/persons')
+
+  const body = request.body
+
+  if (!body.name || !body.number) {
+    return response.status(400).json({error: 'name or number missing'})
+  }
+
+  const person = {
+    id: Math.ceil(Math.random()*1000),
+    name: body.name,
+    number: body.number
+  }
+
+  persons.push(person)
+  response.json(person)
 
 })
 

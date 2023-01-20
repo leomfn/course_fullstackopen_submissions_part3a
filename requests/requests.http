@@ -11,6 +11,19 @@ GET http://localhost:3001/api/persons/1
 GET http://localhost:3001/api/persons/8
 
 ###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "New Name",
+    "number": "123-456"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+###
 DELETE http://localhost:3001/api/persons/1
 
 ###
