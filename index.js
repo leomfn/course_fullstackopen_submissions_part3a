@@ -1,7 +1,9 @@
 const express = require('express')
+const morgan = require('morgan')
 const app = express()
 
 app.use(express.json())
+app.use(morgan('tiny'))
 
 let persons = [
   {
@@ -27,16 +29,12 @@ let persons = [
 ]
 
 app.get('/api/persons', (request, response) => {
-  console.log('GET request on /api/persons registered')
-
   persons
     ? response.json(persons)
     : response.status(404).end()
 })
 
 app.get('/api/persons/:id', (request, response) => {
-  console.log(`GET request on /api/persons/${request.params.id}`)
-
   const id = Number(request.params.id)
 
   const person = persons.find(p => p.id === id)
@@ -48,8 +46,6 @@ app.get('/api/persons/:id', (request, response) => {
 })
 
 app.post('/api/persons', (request, response) => {
-  console.log('POST request on /api/persons')
-
   const body = request.body
 
   if (!body.name) {
@@ -72,24 +68,17 @@ app.post('/api/persons', (request, response) => {
 })
 
 app.delete('/api/persons/:id', (request, response) => {
-  console.log(`DELETE request on /api/persons/${request.params.id}`)
-
   const id = Number(request.params.id)
-  console.log('delete id', id)
 
   if (persons.map(p => p.id).includes(id)) {
-    console.log('id to delete exists')
     persons = persons.filter(p => p.id !== id)
-    console.log(persons)
     response.status(204).end()
   } else {
-    console.log('id to delete does not exist')
     response.status(404).end
   }
 })
 
 app.get('/info', (request, response) => {
-  console.log('GET request on /info registered')
 
   const responseHtml = `<p>Phonebook has info for ${persons.length} people</p>
     <p>${Date()}</p>`
