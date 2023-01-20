@@ -19,9 +19,34 @@ Content-Type: application/json
     "number": "123-456"
 }
 
-###
+### 
 POST http://localhost:3001/api/persons
 Content-Type: application/json
+
+{
+    "name": "Another New Name",
+    "number": "123-456-987"
+}
+
+### no content
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+### name missing
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "number": "123-456-987"
+}
+
+### number missing
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "Another New Name"
+}
 
 ###
 DELETE http://localhost:3001/api/persons/1
