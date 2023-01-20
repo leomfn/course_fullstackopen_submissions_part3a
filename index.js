@@ -26,9 +26,22 @@ const persons = [
     }
 ]
 
+// const persons = []
+
 app.get('/api/persons', (request, response) => {
-    console.log('request registered')
-    response.json(persons)
+    console.log('request on /api/persons registered')
+    
+    persons
+    ? response.json(persons)
+    : response.status(404).end()
+})
+
+app.get('/info', (request, response) => {
+    console.log('request on /info registered')
+
+    const responseHtml = `<p>Phonebook has info for ${persons.length} people</p>
+    ${Date()}`
+    response.send(responseHtml)
 })
 
 const PORT = 3001
